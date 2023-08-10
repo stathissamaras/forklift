@@ -1,0 +1,24 @@
+# Python-related
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.venv/
+env/
+.env/
+
+# Database
+db.sqlite3
+
+# Static files
+staticfiles/
+
+# Logs
+*.log
+
+# Miscellaneous
+.DS_Store
+*.bak
+*.swp
