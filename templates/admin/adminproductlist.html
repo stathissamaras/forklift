@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends 'admin/adminbase.html' %}
+{% block title %}All Products{% endblock %}
+
+
+{% block content %}
+
+<style>
+body {
+        background-color: rgb(255, 153, 51);
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<div class="container"> 
+    <div class="row">
+        <div class="col-md-12">
+            <h3>All Product list</h3><hr>
+            <a href="{% url 'adminorderlist' %}">Add New Product</a>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Product Title</th>
+                        <th>Image</th>
+                        <th>Price</th>
+                        <th>Views</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in allproducts %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{p.name}}</td>
+                        <td><img src="{{p.image.url}}" style="height: 60px;" alt=""></td>
+                        <td>{{p.selling_price|floatformat:2}}</td>
+                        <td>{{p.view_count}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

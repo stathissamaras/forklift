@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>car part checkout</title>
+    <meta name="description" content="ανταλλακτικά αυτοκινήτων ολοκλήρωση παραγγελίας">
+    </head>
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Checkout {% endblock %}
+
+{% block content %}
+
+<style>
+    body { 
+        background-image: url("/media/static/admin_static/tacho.jpg");
+        background-repeat: no-repeat, repeat;
+        background-size: cover;
+        height: 100%;
+        background-position: center;
+        color: white;
+    }
+    label {
+        padding:15px;
+    }
+    .box{
+        background-color: rgb(242, 242, 242);
+        width: 500px;
+        padding: 40px;
+        position: absolute;
+        top: 110%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        text-align: center;
+        border-radius: 24px;
+        color: black;
+    }
+    .box h1{
+    color: black;
+    text-transform: uppercase;
+    font-weight: 400;
+    }
+    .box input {
+    border:0;
+    background: none;
+    display: block;
+    margin: 10px auto;
+    border: 1px solid #3498db;
+    padding: 14px 20px;
+    width: 400px;
+    color: black;
+    }
+</style>
+<br>
+<br>
+<br>
+<br>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Items in the cart</h3>
+            <a href="{% url 'mycart' %}">Update Cart</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Product</th>
+                        <th>Image</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cp in cart.cartproduct_set.all %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{cp.product.name}}</td>
+                        <td><img src= {{ cp.product.image.url }} border=6 height=110 width=110></td>
+                        <td>{{cp.quantity}}</td>
+                        <td>{{cp.subtotal|floatformat:2}}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <th colspan="4" class="text-right">Total</th>
+                        <th>Euro. {{cart.total|floatformat:2}}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <form class="box" action="" method="POST">
+            <h1>Checkout</h1>
+                {% csrf_token %}
+                {{form.as_p}}
+                <button class="btn btn-info">Place order</button>
+                <h6>Με την καταχώρηση της παραγγελίας σας θα υπολογιστεί το κόστος των μεταφορικών και θα σας αποσταλεί ένα ειδικό Payment Link ασφαλούς πληρωμής με πιστωτική κάρτα.</h6>
+            </form>
+            <br>
+        </div>
+    </div>
+</div>
+{% endblock %}

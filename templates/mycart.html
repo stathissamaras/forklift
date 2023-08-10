@@ -1,0 +1,98 @@
+{% load static %}
+{% load bootstrap5 %}
+{% include 'nav.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Equipment Next - shop</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="{% static 'assets/img/apple-icon.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico' %}">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+    
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container text-success">
+    <h1>Καλάθι Αγορών</h1>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Κατηγορία</th>
+            <th>Είδος</th>
+            <th>Image</th>
+            <th>Τιμή</th>
+            <th>Ποσότητα</th>
+            <th>Σύνολο</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cp in cart.cartproduct_set.all %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ cp.product.name }}</td>
+            <td><img src="{{ cp.product.image.url }}" alt="Product Image" style="max-width: 110px; max-height: 110px;"></td>
+            <td>{{ cp.product.selling_price|floatformat:2 }}</td>
+            <td>{{ cp.quantity }}</td>
+            <td>{{ cp.subtotal|floatformat:2 }}</td>
+            <td>
+              <a href="{% url 'managecart' cp.id %}?action=inc" class="btn btn-primary">+</a>
+              <a href="{% url 'managecart' cp.id %}?action=dcr" class="btn btn-warning">-</a>
+              <a href="{% url 'managecart' cp.id %}?action=rmv" class="btn btn-danger">x</a>
+            </td>
+            <td>
+              <button class="btn btn-danger">Remove</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table">
+          <tr>
+            <th colspan="4" class="text-end">Σύνολο</th>
+            <td>Euro. {{ cart.total|floatformat:2 }}</td>
+            {% if cart.cartproduct_set.all %}
+            <td><a class="btn btn-primary" href="{% url 'emptycart' %}">Αφαίρεση Καλαθιού</a></td>
+            {% endif %}
+          </tr>
+          {% if cart.cartproduct_set.all %}
+          <tr>
+            <td colspan="6" class="text-end">
+              <a class="btn btn-primary" href="{% url 'checkout' %}">Ολοκληρώστε...</a>
+              <a class="btn btn-primary" href="{% url 'home' %}">Συνέχεια στο Κατάστημα</a>
+            </td>
+          </tr>
+          {% endif %}
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

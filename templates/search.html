@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>search</title>
+    <meta name="description" content="αναζήτηση ανταλλακτικού με κωδικό">
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+
+<style>
+    body { 
+        background-color: rgb(217, 217, 217);
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: black;
+    }
+    label {
+        padding:15px;
+    }
+</style>
+</head>
+
+<body>
+
+    <div class="container">
+    <div class="row">
+    <div class="col-md-12">
+        <h3>Search Results for <span class="text"{{request.GET.keyword}}></span></h3>
+        <hr>
+    {% for result in results %}
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{result.image.url}}" alt="" class="img-fluid"  style="height: 300px; width: 300px;">
+            <img src="{{result.images1.url}}" alt="" class="img-fluid" style="height: 300px; width: 300px;">
+            <img src="{{result.images2.url}}" alt="" class="img-fluid" style="height: 300px; width: 300px;">
+        </div>
+        <div class="col-md-8">
+            <h4>{{result.name}}</h4>
+            <h5>Category: {{result.subcategory}}</h5>
+            <h5>Price: <strike>Euro. {{result.marked_price|floatformat:2}}</strike> Euro. {{result.selling_price|floatformat:2}}</h5>
+            <a href="{% url 'addtocart' result.id %}" class="btn btn-primary">Add To Cart</a>
+            <hr>
+            <p class="text-dark">{{result.return_policy}}</p>
+            <hr>
+            <p>{{result.description}}</p>
+            <hr>
+            <p><a href="{% url 'dieseltrucks' %}" class="btn btn-primary">Continue Shooping</a></p>
+            <hr>
+        </div>
+    </div>
+    {% endfor %}
+</body>
+
+{% endblock %}
