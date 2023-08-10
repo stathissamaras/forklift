@@ -53,6 +53,17 @@ EMAIL_HOST_PASSWORD = 'kn6-cv5-kt6-g-Venok99g$'  # ή ο κωδικός πρόσ
 
 # Static files (CSS, JavaScript, Images)
 # ... (Υπόλοιπες ρυθμίσεις που δεν αλλάζουν στην παραγωγή)
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.1/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # Ρυθμίσεις για το logging
 LOGGING = {
@@ -73,3 +84,5 @@ LOGGING = {
         },
     },
 }
+
+django_heroku.settings(locals())
