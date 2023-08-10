@@ -7,7 +7,6 @@ ALLOWED_HOSTS = ['cesab.gr', 'www.jasp.gr']
 # Application definition
 
 INSTALLED_APPS = [
-    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',

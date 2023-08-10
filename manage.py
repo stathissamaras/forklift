@@ -6,7 +6,7 @@ import sys
 def main():
     """Run administrative tasks."""
     # Ενημερώστε την παράμετρο 'forklift.settings' ανάλογα με το περιβάλλον
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'forklift.settings_development')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'forklift.settings_production')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
